@@ -15,15 +15,15 @@ class ObserverManager:
         '''
         pass
 
-    def process_response_collect_metrics(self):
+    def process_response_collect_metrics(self, kafka_message: str):
         '''
-        (Вызывается внутри get_event()) Обработка ответа от Metrics Collector
+        Обработка ответа от Metrics Collector
         '''
         pass
 
-    def process_response_analyse_trend_data(self):
+    def process_response_analyse_trend_data(self, kafka_message: str):
         '''
-        (Вызывается внутри get_event()) Обработка ответа от Analyse Module
+        Обработка ответа от Analyse Module
         '''
         pass
 
