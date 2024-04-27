@@ -15,13 +15,13 @@ class ObserverManager:
         '''
         pass
 
-    def process_collect_metrics_response(self):
+    def process_response_collect_metrics(self):
         '''
         (Вызывается внутри get_event()) Обработка ответа от Metrics Collector
         '''
         pass
 
-    def process_analyse_trend_data_response(self):
+    def process_response_analyse_trend_data(self):
         '''
         (Вызывается внутри get_event()) Обработка ответа от Analyse Module
         '''
