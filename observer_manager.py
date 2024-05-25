@@ -15,6 +15,8 @@ class ObserverManager(Microservice):
     Класс отвечающий за представление Observer manager
     Его задача -- отправлять запрос на проведение анализа, пересылать полученные данные Desicion module, отправлять запрос на сбор метрик
     '''
+    TIMER_SEND_METRIC_COLLECT_EVENT = 300.0
+    TIMER_SEND_ANALYSE_TREND_EVENT = 60
 
     def __init__(self, event_queue: Queue, writers: Dict[str, KafkaEventWriter]):
         '''
@@ -31,7 +33,7 @@ class ObserverManager(Microservice):
         '''
         Запуск таймера для отправки ивентов
         '''
-        self.timer1 = Timer(300, self.send_get_metrics_event)
+        self.timer1 = Timer(self.TIMER_SEND_METRIC_COLLECT_EVENT, self.send_get_metrics_event)
         self.timer1.start()
         
     def send_get_metrics_event(self):
@@ -40,7 +42,7 @@ class ObserverManager(Microservice):
         '''
         self.writers['mtrc'].send_event(Event(EventType.GetMetrics))
         self.timer1 = None
-        self.timer2 = Timer(60, self.send_analyse_trend_event)
+        self.timer2 = Timer(self.TIMER_SEND_ANALYSE_TREND_EVENT, self.send_analyse_trend_event)
         self.timer2.start()
 
     def send_analyse_trend_event(self):
