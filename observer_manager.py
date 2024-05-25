@@ -19,6 +19,8 @@ class ObserverManager(Microservice):
     def __init__(self, event_queue: Queue, writers: Dict[str, KafkaEventWriter]):
         '''
         Инициализация класса:
+         - `self.timer1 - таймер для отправки ивента на сбор метрик`
+         - `self.timer2 - таймер для отправки ивента на проведение анализа`
         '''
         self.timer1 = None
         self.timer2 = None
