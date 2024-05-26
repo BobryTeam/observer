@@ -18,7 +18,7 @@ class ObserverManager(Microservice):
     Класс отвечающий за представление Observer manager
     Его задача -- отправлять запрос на проведение анализа, пересылать полученные данные Desicion module, отправлять запрос на сбор метрик
     '''
-    
+
     TIMER_SEND_GET_METRICS_EVENT = 300.0
 
 
@@ -29,12 +29,12 @@ class ObserverManager(Microservice):
         '''
         super().__init__(event_queue, writers)
 
-        self.main_thread = Thread(target=self.send_get_metrics_event)
+        self.main_thread = Thread(target=self.main_loop)
         self.main_thread.start()
 
-    def send_get_metrics_event(self):
+    def main_loop(self):
         '''
-        Отправка ивента на сбор метрик
+        Отправка ивента на сбор метрик - старт скалирования
         '''
         while True:
             time.sleep(self.TIMER_SEND_GET_METRICS_EVENT)
@@ -58,6 +58,7 @@ class ObserverManager(Microservice):
             Thread(target=target_function, args=(event.data,)).start()
 
     def handle_event_got_metrics(self, _):
+        # send AnalyseTrend to Trend Analyser
         self.writers['tran'].send_event(Event(EventType.AnalyseTrend, ''))
 
     def handle_event_trend_data(self, trend_data: TrendData):
