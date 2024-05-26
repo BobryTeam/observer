@@ -14,7 +14,8 @@ event_queue = Queue()
 reader = KafkaEventReader(
     KafkaConsumer(
         'om',
-        bootstrap_servers=kafka_bootstrap_server
+        bootstrap_servers=kafka_bootstrap_server,
+        auto_offset_reset='latest',
     ),
     event_queue
 )
