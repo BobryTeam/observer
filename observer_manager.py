@@ -19,7 +19,8 @@ class ObserverManager(Microservice):
     Его задача -- отправлять запрос на проведение анализа, пересылать полученные данные Desicion module, отправлять запрос на сбор метрик
     '''
 
-    TIMER_SEND_GET_METRICS_EVENT = 300.0
+    # start main loop (by getting metrics) every 600 seconds
+    TIMER_SEND_GET_METRICS_EVENT = 600.0
 
 
     def __init__(self, event_queue: Queue, writers: Dict[str, KafkaEventWriter]):
