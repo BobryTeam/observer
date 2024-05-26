@@ -7,6 +7,7 @@ from events.event import *
 from events.kafka_event import *
 
 from trend_data.trend_data import TrendData
+from scale_data.scale_data import ScaleData
 
 from microservice.microservice import Microservice
 
@@ -16,7 +17,7 @@ class ObserverManager(Microservice):
     Его задача -- отправлять запрос на проведение анализа, пересылать полученные данные Desicion module, отправлять запрос на сбор метрик
     '''
     TIMER_SEND_METRIC_COLLECT_EVENT = 300.0
-    TIMER_SEND_ANALYSE_TREND_EVENT = 60
+    TIMER_SEND_ANALYSE_TREND_EVENT = 60.0
 
     def __init__(self, event_queue: Queue, writers: Dict[str, KafkaEventWriter]):
         '''
@@ -68,6 +69,6 @@ class ObserverManager(Microservice):
         if target_function is not None:
             Thread(target=target_function, args=(event.data,)).start()
 
-    def handle_event_trend_data(self, trend_data: TrendData):
+    def handle_event_trend_data(self, scale_data: ScaleData):
         # send trend data to DM Manager
-        self.writers['dmm'].send_event(Event(EventType.TrendData, trend_data))
+        self.writers['dmm'].send_event(Event(EventType.TrendData, scale_data))
