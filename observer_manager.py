@@ -38,7 +38,7 @@ class ObserverManager(Microservice):
         '''
         while True:
             time.sleep(self.TIMER_SEND_GET_METRICS_EVENT)
-            self.writers['mtrc'].send_event(Event(EventType.GetMetrics, ''))
+            self.writers['mc'].send_event(Event(EventType.GetMetrics, ''))
 
     def handle_event(self, event: Event):
         '''
@@ -59,7 +59,7 @@ class ObserverManager(Microservice):
 
     def handle_event_got_metrics(self, _):
         # send AnalyseTrend to Trend Analyser
-        self.writers['tran'].send_event(Event(EventType.AnalyseTrend, ''))
+        self.writers['ta'].send_event(Event(EventType.AnalyseTrend, ''))
 
     def handle_event_trend_data(self, trend_data: TrendData):
         # send TrendData to DM Manager
