@@ -22,11 +22,11 @@ class ObserverManager(Microservice):
     def __init__(self, event_queue: Queue, writers: Dict[str, KafkaEventWriter]):
         '''
         Инициализация класса:
-         - `self.timer1 - таймер для отправки ивента на сбор метрик`
-         - `self.timer2 - таймер для отправки ивента на проведение анализа`
+         - `self.timer_get_metrics  - таймер для отправки ивента на сбор метрик`
+         - `self.timer_analyse - таймер для отправки ивента на проведение анализа`
         '''
-        self.timer1 = None
-        self.timer2 = None
+        self.timer_get_metrics = None
+        self.timer_analyse = None
         return super().__init__(event_queue, writers)
 
 
@@ -34,24 +34,24 @@ class ObserverManager(Microservice):
         '''
         Запуск таймера для отправки ивентов
         '''
-        self.timer1 = Timer(self.TIMER_SEND_METRIC_COLLECT_EVENT, self.send_get_metrics_event)
-        self.timer1.start()
+        self.timer_get_metrics = Timer(self.TIMER_SEND_METRIC_COLLECT_EVENT, self.send_get_metrics_event)
+        self.timer_get_metrics.start()
         
     def send_get_metrics_event(self):
         '''
         Отправка ивента на сбор метрик
         '''
-        self.writers['mtrc'].send_event(Event(EventType.GetMetrics))
-        self.timer1 = None
-        self.timer2 = Timer(self.TIMER_SEND_ANALYSE_TREND_EVENT, self.send_analyse_trend_event)
-        self.timer2.start()
+        self.writers['mtrc'].send_event(Event(EventType.GetMetrics, ''))
+        self.timer_get_metrics = None
+        self.timer_analyse = Timer(self.TIMER_SEND_ANALYSE_TREND_EVENT, self.send_analyse_trend_event)
+        self.timer_analyse.start()
 
     def send_analyse_trend_event(self):
         '''
         Отправка ивента на проведение анализа
         '''
-        self.writers['trda'].send_event(Event(EventType.AnalyseTrend))
-        self.timer2=None
+        self.writers['tran'].send_event(Event(EventType.AnalyseTrend, ''))
+        self.timer_analyse=None
         self.start_timer
 
     def handle_event(self, event: Event):
