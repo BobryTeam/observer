@@ -8,6 +8,10 @@ import os
 # put the value in a k8s manifest
 kafka_bootstrap_server = os.environ.get('KAFKA_BOOTSTRAP_SERVER')
 
+if kafka_bootstrap_server is None:
+    print(f'Environment variable KAFKA_BOOTSTRAP_SERVER is not set')
+    exit(1)
+
 event_queue = Queue()
 
 # share the queue with a reader
