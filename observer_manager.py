@@ -37,6 +37,8 @@ class ObserverManager(Microservice):
         '''
         Отправка ивента на сбор метрик - старт скалирования
         '''
+        self.writers['mc'].send_event(Event(EventType.GetMetrics, ''))
+
         while True:
             time.sleep(self.TIMER_SEND_GET_METRICS_EVENT)
             self.writers['mc'].send_event(Event(EventType.GetMetrics, ''))
