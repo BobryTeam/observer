@@ -6,7 +6,7 @@ from events.event import *
 import os
 
 # put the value in a k8s manifest
-kafka_bootstrap_server = os.environ.get('KAFKA_BOOTSTRAP_SERVER')
+kafka_bootstrap_server: str | None = os.environ.get('KAFKA_BOOTSTRAP_SERVER')
 
 if kafka_bootstrap_server is None:
     print(f'Environment variable KAFKA_BOOTSTRAP_SERVER is not set')
