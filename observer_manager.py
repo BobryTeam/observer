@@ -19,7 +19,7 @@ class ObserverManager(Microservice):
     Его задача -- отправлять запрос на проведение анализа, пересылать полученные данные Desicion module, отправлять запрос на сбор метрик
     '''
 
-    # start main loop (by getting metrics) every 600 seconds
+    # start main loop (by getting metrics) every TIMER_SEND_GET_METRICS_EVENT seconds
     TIMER_SEND_GET_METRICS_EVENT = 600.0
 
 
