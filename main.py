@@ -1,5 +1,5 @@
-from queue import Queue
 import os
+from queue import Queue
 
 from observer_manager import ObserverManager
 from events import *
