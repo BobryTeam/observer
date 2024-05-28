@@ -6,9 +6,7 @@ from threading import Thread
 import time
 
 from events import *
-
 from trend_data import TrendData
-
 from microservice import Microservice
 
 
