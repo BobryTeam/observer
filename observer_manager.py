@@ -5,12 +5,11 @@ from threading import Thread
 
 import time
 
-from events.event import *
-from events.kafka_event import *
+from events import *
 
-from trend_data.trend_data import TrendData
+from trend_data import TrendData
 
-from microservice.microservice import Microservice
+from microservice import Microservice
 
 
 class ObserverManager(Microservice):

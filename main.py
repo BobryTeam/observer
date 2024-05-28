@@ -1,9 +1,11 @@
-from observer_manager import ObserverManager
-
-from events.kafka_event import *
-from events.event import *
-
+from queue import Queue
 import os
+
+from observer_manager import ObserverManager
+from events import *
+
+from kafka import KafkaConsumer, KafkaProducer
+
 
 # put the value in a k8s manifest
 kafka_bootstrap_server: str | None = os.environ.get('KAFKA_BOOTSTRAP_SERVER')
