@@ -5,7 +5,8 @@ from threading import Thread
 
 import time
 
-from events import *
+from event import *
+from kafka_event import *
 from trend_data import TrendData
 from microservice import Microservice
 

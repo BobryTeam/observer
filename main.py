@@ -2,7 +2,8 @@ import os
 from queue import Queue
 
 from observer_manager import ObserverManager
-from events import *
+from event import *
+from kafka_event import *
 
 from kafka import KafkaConsumer, KafkaProducer
 
